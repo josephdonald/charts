@@ -1,0 +1,40 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% bootstrap_css %}
+
+    <title>Index Consultoria</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-primary">Index Consultoria</h1>
+    </div>
+
+    <div>
+      <canvas id="grafico" width="400" height="150">
+
+      </canvas>
+    </div>
+
+    {% bootstrap_javascript jquery='full' %}
+
+  <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $.get('{% url "dados" %}', function(data){
+      var ctx = $("#grafico").get(0).getContext("2d");
+      new Chart(ctx, {
+        type: 'line', data: data
+      });
+    });
+  </script>
+
+  </body>
+</html>
